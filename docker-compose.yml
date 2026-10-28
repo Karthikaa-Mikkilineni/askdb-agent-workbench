@@ -1,0 +1,19 @@
+services:
+  db:
+    image: postgres:16
+    environment: {POSTGRES_DB: askdb, POSTGRES_USER: askdb_app, POSTGRES_PASSWORD: askdb_app}
+    ports: ["5432:5432"]
+    volumes: ["./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro"]
+  backend:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql+psycopg://askdb_readonly:readonly@db:5432/askdb
+      LLM_PROVIDER: ${LLM_PROVIDER:-openai}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+    ports: ["8000:8000"]
+    depends_on: [db]
+  frontend:
+    build: ./frontend
+    ports: ["5173:5173"]
+    depends_on: [backend]
