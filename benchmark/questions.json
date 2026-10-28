@@ -1,0 +1,22 @@
+[
+{"id":1,"question":"How many customers are there?","gold_sql":"SELECT COUNT(*) AS customer_count FROM customers"},
+{"id":2,"question":"How many completed orders are there?","gold_sql":"SELECT COUNT(*) AS completed_orders FROM orders WHERE status = 'completed'"},
+{"id":3,"question":"List customers from the East region.","gold_sql":"SELECT customer_id, name, region, signup_date FROM customers WHERE region = 'East' ORDER BY customer_id"},
+{"id":4,"question":"What is the average product price?","gold_sql":"SELECT AVG(price) AS average_price FROM products"},
+{"id":5,"question":"What is the total quantity of items sold in completed orders?","gold_sql":"SELECT SUM(oi.quantity) AS total_quantity FROM order_items oi JOIN orders o ON o.order_id=oi.order_id WHERE o.status='completed'"},
+{"id":6,"question":"Which product has the highest price?","gold_sql":"SELECT name, price FROM products ORDER BY price DESC LIMIT 1"},
+{"id":7,"question":"How many products are in each category?","gold_sql":"SELECT category, COUNT(*) AS product_count FROM products GROUP BY category ORDER BY category"},
+{"id":8,"question":"What is total revenue from completed orders?","gold_sql":"SELECT SUM(oi.quantity*oi.unit_price) AS revenue FROM order_items oi JOIN orders o ON o.order_id=oi.order_id WHERE o.status='completed'"},
+{"id":9,"question":"What is completed-order revenue by customer?","gold_sql":"SELECT c.name, SUM(oi.quantity*oi.unit_price) AS revenue FROM customers c JOIN orders o ON o.customer_id=c.customer_id JOIN order_items oi ON oi.order_id=o.order_id WHERE o.status='completed' GROUP BY c.customer_id,c.name ORDER BY c.name"},
+{"id":10,"question":"Which customer generated the most completed-order revenue?","gold_sql":"SELECT c.name, SUM(oi.quantity*oi.unit_price) AS revenue FROM customers c JOIN orders o ON o.customer_id=c.customer_id JOIN order_items oi ON oi.order_id=o.order_id WHERE o.status='completed' GROUP BY c.customer_id,c.name ORDER BY revenue DESC LIMIT 1"},
+{"id":11,"question":"What is completed-order revenue by region?","gold_sql":"SELECT c.region, SUM(oi.quantity*oi.unit_price) AS revenue FROM customers c JOIN orders o ON o.customer_id=c.customer_id JOIN order_items oi ON oi.order_id=o.order_id WHERE o.status='completed' GROUP BY c.region ORDER BY c.region"},
+{"id":12,"question":"Which region has the highest completed-order revenue?","gold_sql":"SELECT c.region, SUM(oi.quantity*oi.unit_price) AS revenue FROM customers c JOIN orders o ON o.customer_id=c.customer_id JOIN order_items oi ON oi.order_id=o.order_id WHERE o.status='completed' GROUP BY c.region ORDER BY revenue DESC LIMIT 1"},
+{"id":13,"question":"How many orders were placed each month?","gold_sql":"SELECT DATE_TRUNC('month',order_date) AS month, COUNT(*) AS orders FROM orders GROUP BY month ORDER BY month"},
+{"id":14,"question":"What is the average order value for completed orders?","gold_sql":"SELECT AVG(order_total) AS average_order_value FROM (SELECT o.order_id,SUM(oi.quantity*oi.unit_price) AS order_total FROM orders o JOIN order_items oi ON oi.order_id=o.order_id WHERE o.status='completed' GROUP BY o.order_id) x"},
+{"id":15,"question":"List products that have appeared in completed orders.","gold_sql":"SELECT DISTINCT p.product_id,p.name FROM products p JOIN order_items oi ON oi.product_id=p.product_id JOIN orders o ON o.order_id=oi.order_id WHERE o.status='completed' ORDER BY p.product_id"},
+{"id":16,"question":"How many unique customers have completed an order?","gold_sql":"SELECT COUNT(DISTINCT customer_id) AS customers FROM orders WHERE status='completed'"},
+{"id":17,"question":"Which category generated the most completed-order revenue?","gold_sql":"SELECT p.category,SUM(oi.quantity*oi.unit_price) AS revenue FROM products p JOIN order_items oi ON oi.product_id=p.product_id JOIN orders o ON o.order_id=oi.order_id WHERE o.status='completed' GROUP BY p.category ORDER BY revenue DESC LIMIT 1"},
+{"id":18,"question":"Show the three most recent orders.","gold_sql":"SELECT order_id,customer_id,order_date,status FROM orders ORDER BY order_date DESC,order_id DESC LIMIT 3"},
+{"id":19,"question":"What percentage of orders were cancelled?","gold_sql":"SELECT 100.0*COUNT(*) FILTER (WHERE status='cancelled')/COUNT(*) AS cancelled_percentage FROM orders"},
+{"id":20,"question":"Which customers have placed more than one order?","gold_sql":"SELECT c.name,COUNT(*) AS order_count FROM customers c JOIN orders o ON o.customer_id=c.customer_id GROUP BY c.customer_id,c.name HAVING COUNT(*)>1 ORDER BY c.name"}
+]
