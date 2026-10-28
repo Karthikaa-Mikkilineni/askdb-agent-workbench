@@ -1,0 +1,340 @@
+{
+  "model": "Qwen/Qwen3-0.6B",
+  "mode": "real local CPU inference",
+  "data": "synthetic commerce",
+  "cases": [
+    {
+      "id": "order_count",
+      "question": "How many orders are in the database, including cancelled orders?",
+      "rows": [
+        [
+          4
+        ]
+      ],
+      "correct": false,
+      "seconds": 22.893,
+      "agent": {
+        "thread_id": "287bc295-26a2-4ce0-a107-675601f39e3f",
+        "status": "budget_exhausted",
+        "calls": 4,
+        "errors": 3,
+        "trace": [
+          {
+            "tool": "inspect_schema",
+            "args": {},
+            "ok": true,
+            "observation": {
+              "customers": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "region",
+                  "type": "TEXT"
+                }
+              ],
+              "order_items": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "order_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "category",
+                  "type": "TEXT"
+                },
+                {
+                  "name": "quantity",
+                  "type": "INTEGER"
+                }
+              ],
+              "orders": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "customer_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "status",
+                  "type": "TEXT"
+                },
+                {
+                  "name": "total",
+                  "type": "NUMERIC"
+                },
+                {
+                  "name": "created_at",
+                  "type": "TEXT"
+                }
+              ],
+              "refunds": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "order_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "amount",
+                  "type": "NUMERIC"
+                }
+              ]
+            }
+          },
+          {
+            "tool": "execute_sql",
+            "args": {
+              "token": "one SELECT query"
+            },
+            "ok": false,
+            "error": "No matching validated query token"
+          },
+          {
+            "tool": "validate_sql",
+            "args": {
+              "sql": "one SELECT query"
+            },
+            "ok": false,
+            "error": "SQL parse error"
+          },
+          {
+            "tool": "explain_sql",
+            "args": {
+              "token": "one SELECT query"
+            },
+            "ok": false,
+            "error": "No matching validated query token"
+          }
+        ],
+        "result": {},
+        "clarification": ""
+      }
+    },
+    {
+      "id": "paid_count",
+      "question": "How many orders have status paid?",
+      "rows": [
+        [
+          3
+        ]
+      ],
+      "correct": false,
+      "seconds": 15.376,
+      "agent": {
+        "thread_id": "f6148ec2-b1f7-4bf4-987b-229f2e8357ad",
+        "status": "budget_exhausted",
+        "calls": 3,
+        "errors": 3,
+        "trace": [
+          {
+            "tool": "execute_sql",
+            "args": {
+              "token": "one SELECT query"
+            },
+            "ok": false,
+            "error": "No matching validated query token"
+          },
+          {
+            "tool": "validate_sql",
+            "args": {
+              "sql": "one SELECT query"
+            },
+            "ok": false,
+            "error": "Inspect schema before writing SQL"
+          },
+          {
+            "tool": "finish",
+            "args": {},
+            "ok": false,
+            "error": "No execution evidence; cannot finish"
+          }
+        ],
+        "result": {},
+        "clarification": ""
+      }
+    },
+    {
+      "id": "booked",
+      "question": "What is total booked revenue from paid orders, before subtracting refunds?",
+      "rows": [
+        [
+          350
+        ]
+      ],
+      "correct": false,
+      "seconds": 26.536,
+      "agent": {
+        "thread_id": "3654f345-f1ba-45fe-8893-730fa0784e1d",
+        "status": "budget_exhausted",
+        "calls": 3,
+        "errors": 3,
+        "trace": [
+          {
+            "tool": "execute_sql",
+            "args": {
+              "token": "one SELECT * FROM paid_orders WHERE order_type = 'paid' AND order_status = 'booked'"
+            },
+            "ok": false,
+            "error": "No matching validated query token"
+          },
+          {
+            "tool": "validate_sql",
+            "args": {
+              "sql": "one SELECT * FROM paid_orders WHERE order_type = 'paid' AND order_status = 'booked'"
+            },
+            "ok": false,
+            "error": "Inspect schema before writing SQL"
+          },
+          {
+            "tool": "inspect_schema",
+            "args": {
+              "column_names": [
+                "order_type",
+                "order_status"
+              ]
+            },
+            "ok": false,
+            "error": "Invalid action or tool arguments; return the documented JSON action"
+          }
+        ],
+        "result": {},
+        "clarification": ""
+      }
+    },
+    {
+      "id": "net",
+      "question": "What is total net revenue from paid orders after subtracting all refunds?",
+      "rows": [
+        [
+          315
+        ]
+      ],
+      "correct": false,
+      "seconds": 16.026,
+      "agent": {
+        "thread_id": "bdd27260-0c9a-4e26-bbf7-bf87cbba0ca9",
+        "status": "budget_exhausted",
+        "calls": 3,
+        "errors": 3,
+        "trace": [
+          {
+            "tool": "execute_sql",
+            "args": {
+              "token": "one SELECT query"
+            },
+            "ok": false,
+            "error": "No matching validated query token"
+          },
+          {
+            "tool": "validate_sql",
+            "args": {
+              "sql": "one SELECT query"
+            },
+            "ok": false,
+            "error": "Inspect schema before writing SQL"
+          },
+          {
+            "tool": "invalid",
+            "args": {},
+            "ok": false,
+            "error": "Invalid action or tool arguments; return the documented JSON action"
+          }
+        ],
+        "result": {},
+        "clarification": ""
+      }
+    },
+    {
+      "id": "region_net",
+      "question": "Show net revenue by customer region for paid orders, after all refunds. Avoid multiplying orders by their items.",
+      "rows": [
+        [
+          "East",
+          135
+        ],
+        [
+          "West",
+          180
+        ]
+      ],
+      "correct": false,
+      "seconds": 15.408,
+      "agent": {
+        "thread_id": "2c5c431b-4c80-4f14-9832-e303b2df8bd5",
+        "status": "budget_exhausted",
+        "calls": 3,
+        "errors": 3,
+        "trace": [
+          {
+            "tool": "validate_sql",
+            "args": {
+              "sql": "one SELECT query"
+            },
+            "ok": false,
+            "error": "Inspect schema before writing SQL"
+          },
+          {
+            "tool": "finish",
+            "args": {},
+            "ok": false,
+            "error": "No execution evidence; cannot finish"
+          },
+          {
+            "tool": "execute_sql",
+            "args": {
+              "token": "one SELECT query"
+            },
+            "ok": false,
+            "error": "No matching validated query token"
+          }
+        ],
+        "result": {},
+        "clarification": ""
+      }
+    },
+    {
+      "id": "ambiguous",
+      "question": "What is our revenue?",
+      "clarify": true,
+      "correct": false,
+      "seconds": 14.997,
+      "agent": {
+        "thread_id": "bfd46ede-9a89-4856-a33a-7d21de8c6fc4",
+        "status": "budget_exhausted",
+        "calls": 3,
+        "errors": 3,
+        "trace": [
+          {
+            "tool": "finish",
+            "args": {},
+            "ok": false,
+            "error": "No execution evidence; cannot finish"
+          },
+          {
+            "tool": "invalid",
+            "args": {},
+            "ok": false,
+            "error": "Invalid action or tool arguments; return the documented JSON action"
+          },
+          {
+            "tool": "invalid",
+            "args": {},
+            "ok": false,
+            "error": "Invalid action or tool arguments; return the documented JSON action"
+          }
+        ],
+        "result": {},
+        "clarification": ""
+      }
+    }
+  ]
+}

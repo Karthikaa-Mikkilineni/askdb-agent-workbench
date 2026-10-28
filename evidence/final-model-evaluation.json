@@ -1,0 +1,1229 @@
+{
+  "model": "Qwen/Qwen3-1.7B",
+  "mode": "real local CPU inference",
+  "transport": "real localhost HTTP through FastAPI/Uvicorn",
+  "data": "synthetic commerce",
+  "cases": [
+    {
+      "id": "order_count",
+      "question": "How many orders are in the database, including cancelled orders?",
+      "rows": [
+        [
+          4
+        ]
+      ],
+      "correct": true,
+      "seconds": 34.611,
+      "agent": {
+        "thread_id": "3c1e38b2-d4d0-4742-b610-053d64bed173",
+        "status": "completed",
+        "calls": 4,
+        "errors": 0,
+        "trace": [
+          {
+            "tool": "inspect_schema",
+            "args": {},
+            "ok": true,
+            "observation": {
+              "customers": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "region",
+                  "type": "TEXT"
+                }
+              ],
+              "order_financials": [
+                {
+                  "name": "order_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "customer_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "status",
+                  "type": "TEXT"
+                },
+                {
+                  "name": "booked_revenue",
+                  "type": "NUMERIC"
+                },
+                {
+                  "name": "refund_amount",
+                  "type": ""
+                },
+                {
+                  "name": "net_revenue",
+                  "type": ""
+                }
+              ],
+              "order_items": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "order_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "category",
+                  "type": "TEXT"
+                },
+                {
+                  "name": "quantity",
+                  "type": "INTEGER"
+                }
+              ],
+              "orders": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "customer_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "status",
+                  "type": "TEXT"
+                },
+                {
+                  "name": "total",
+                  "type": "NUMERIC"
+                },
+                {
+                  "name": "created_at",
+                  "type": "TEXT"
+                }
+              ],
+              "refunds": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "order_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "amount",
+                  "type": "NUMERIC"
+                }
+              ]
+            }
+          },
+          {
+            "tool": "validate_sql",
+            "args": {
+              "sql": "SELECT COUNT(*) FROM orders;"
+            },
+            "ok": true,
+            "observation": {
+              "token": "a73314806ff119a64491ea313a1e4808e51e43377fe1adad871391c54160585d",
+              "sql": "SELECT * FROM (SELECT COUNT(*) FROM orders) AS askdb_result LIMIT 50"
+            }
+          },
+          {
+            "tool": "explain_sql",
+            "args": {
+              "sql": "SELECT COUNT(*) FROM orders;"
+            },
+            "ok": true,
+            "observation": {
+              "details": [
+                [
+                  2,
+                  0,
+                  0,
+                  "CO-ROUTINE askdb_result"
+                ],
+                [
+                  6,
+                  2,
+                  0,
+                  "SCAN orders"
+                ],
+                [
+                  11,
+                  0,
+                  16,
+                  "SCAN askdb_result"
+                ]
+              ],
+              "cost_guard": "SQLite instruction budget, not PostgreSQL cost estimate"
+            }
+          },
+          {
+            "tool": "execute_sql",
+            "args": {
+              "sql": "SELECT COUNT(*) FROM orders;"
+            },
+            "ok": true,
+            "observation": {
+              "columns": [
+                "COUNT(*)"
+              ],
+              "rows": [
+                [
+                  4
+                ]
+              ]
+            }
+          }
+        ],
+        "result": {
+          "columns": [
+            "COUNT(*)"
+          ],
+          "rows": [
+            [
+              4
+            ]
+          ],
+          "sql": "SELECT * FROM (SELECT COUNT(*) FROM orders) AS askdb_result LIMIT 50",
+          "evidence_hash": "7986e1cb2ae78480b9cb4fcefb874e09867e7fee7009e68685d2e3c6f83464f2"
+        },
+        "clarification": ""
+      }
+    },
+    {
+      "id": "paid_count",
+      "question": "How many orders have status paid?",
+      "rows": [
+        [
+          3
+        ]
+      ],
+      "correct": true,
+      "seconds": 42.14,
+      "agent": {
+        "thread_id": "73c784a0-0b61-4f67-b30f-ec75a998d5a3",
+        "status": "completed",
+        "calls": 4,
+        "errors": 0,
+        "trace": [
+          {
+            "tool": "inspect_schema",
+            "args": {},
+            "ok": true,
+            "observation": {
+              "customers": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "region",
+                  "type": "TEXT"
+                }
+              ],
+              "order_financials": [
+                {
+                  "name": "order_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "customer_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "status",
+                  "type": "TEXT"
+                },
+                {
+                  "name": "booked_revenue",
+                  "type": "NUMERIC"
+                },
+                {
+                  "name": "refund_amount",
+                  "type": ""
+                },
+                {
+                  "name": "net_revenue",
+                  "type": ""
+                }
+              ],
+              "order_items": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "order_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "category",
+                  "type": "TEXT"
+                },
+                {
+                  "name": "quantity",
+                  "type": "INTEGER"
+                }
+              ],
+              "orders": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "customer_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "status",
+                  "type": "TEXT"
+                },
+                {
+                  "name": "total",
+                  "type": "NUMERIC"
+                },
+                {
+                  "name": "created_at",
+                  "type": "TEXT"
+                }
+              ],
+              "refunds": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "order_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "amount",
+                  "type": "NUMERIC"
+                }
+              ]
+            }
+          },
+          {
+            "tool": "validate_sql",
+            "args": {
+              "sql": "SELECT COUNT(*) FROM orders WHERE status = 'paid'"
+            },
+            "ok": true,
+            "observation": {
+              "token": "04eb7f9ee8e0ce6ff92429b1a2d4d799afb70b6c0cc7cd477bf5a3f9c69b5025",
+              "sql": "SELECT * FROM (SELECT COUNT(*) FROM orders WHERE status = 'paid') AS askdb_result LIMIT 50"
+            }
+          },
+          {
+            "tool": "explain_sql",
+            "args": {
+              "sql": "SELECT * FROM (SELECT COUNT(*) FROM orders WHERE status = 'paid') AS askdb_result LIMIT 50"
+            },
+            "ok": true,
+            "observation": {
+              "details": [
+                [
+                  2,
+                  0,
+                  0,
+                  "CO-ROUTINE askdb_result"
+                ],
+                [
+                  5,
+                  2,
+                  216,
+                  "SCAN orders"
+                ],
+                [
+                  16,
+                  0,
+                  16,
+                  "SCAN askdb_result"
+                ]
+              ],
+              "cost_guard": "SQLite instruction budget, not PostgreSQL cost estimate"
+            }
+          },
+          {
+            "tool": "execute_sql",
+            "args": {
+              "sql": "SELECT * FROM (SELECT COUNT(*) FROM orders WHERE status = 'paid') AS askdb_result LIMIT 50"
+            },
+            "ok": true,
+            "observation": {
+              "columns": [
+                "COUNT(*)"
+              ],
+              "rows": [
+                [
+                  3
+                ]
+              ]
+            }
+          }
+        ],
+        "result": {
+          "columns": [
+            "COUNT(*)"
+          ],
+          "rows": [
+            [
+              3
+            ]
+          ],
+          "sql": "SELECT * FROM (SELECT COUNT(*) FROM orders WHERE status = 'paid') AS askdb_result LIMIT 50",
+          "evidence_hash": "85eb99f0b4a6a8195f1a7e69cb03c77636ab6a0e698b4263968b94e6f1874a0c"
+        },
+        "clarification": ""
+      }
+    },
+    {
+      "id": "booked",
+      "question": "What is total booked revenue from paid orders, before subtracting refunds?",
+      "rows": [
+        [
+          350
+        ]
+      ],
+      "correct": true,
+      "seconds": 72.422,
+      "agent": {
+        "thread_id": "6a8bca64-1502-4dbd-a7cd-bf7c33015470",
+        "status": "completed",
+        "calls": 5,
+        "errors": 0,
+        "trace": [
+          {
+            "tool": "inspect_schema",
+            "args": {},
+            "ok": true,
+            "observation": {
+              "customers": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "region",
+                  "type": "TEXT"
+                }
+              ],
+              "order_financials": [
+                {
+                  "name": "order_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "customer_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "status",
+                  "type": "TEXT"
+                },
+                {
+                  "name": "booked_revenue",
+                  "type": "NUMERIC"
+                },
+                {
+                  "name": "refund_amount",
+                  "type": ""
+                },
+                {
+                  "name": "net_revenue",
+                  "type": ""
+                }
+              ],
+              "order_items": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "order_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "category",
+                  "type": "TEXT"
+                },
+                {
+                  "name": "quantity",
+                  "type": "INTEGER"
+                }
+              ],
+              "orders": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "customer_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "status",
+                  "type": "TEXT"
+                },
+                {
+                  "name": "total",
+                  "type": "NUMERIC"
+                },
+                {
+                  "name": "created_at",
+                  "type": "TEXT"
+                }
+              ],
+              "refunds": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "order_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "amount",
+                  "type": "NUMERIC"
+                }
+              ]
+            }
+          },
+          {
+            "tool": "metric_definitions",
+            "args": {},
+            "ok": true,
+            "observation": {
+              "booked_revenue": "Use SUM(order_financials.booked_revenue) WHERE status='paid'. Approved view: one row per order.",
+              "net_revenue": "Use SUM(order_financials.net_revenue) WHERE status='paid'. The view pre-aggregates refunds and includes unrefunded orders.",
+              "conversion": "Undefined: there are no exposure/visit denominators in this database",
+              "grain_warning": "Prefer the approved order_financials view for financial metrics. Join customers via customer_id for region. Raw child joins can multiply revenue."
+            }
+          },
+          {
+            "tool": "validate_sql",
+            "args": {
+              "sql": "SELECT SUM(order_financials.booked_revenue) AS total_booked_revenue FROM order_financials WHERE status = 'paid'"
+            },
+            "ok": true,
+            "observation": {
+              "token": "c549c172becdade5df18ca712e35be3a82cf74f69ce013c4b5deb32c84826136",
+              "sql": "SELECT * FROM (SELECT SUM(order_financials.booked_revenue) AS total_booked_revenue FROM order_financials WHERE status = 'paid') AS askdb_result LIMIT 50"
+            }
+          },
+          {
+            "tool": "explain_sql",
+            "args": {
+              "sql": "SELECT * FROM (SELECT SUM(order_financials.booked_revenue) AS total_booked_revenue FROM order_financials WHERE status = 'paid') AS askdb_result LIMIT 50"
+            },
+            "ok": true,
+            "observation": {
+              "details": [
+                [
+                  2,
+                  0,
+                  0,
+                  "CO-ROUTINE askdb_result"
+                ],
+                [
+                  5,
+                  2,
+                  0,
+                  "MATERIALIZE r"
+                ],
+                [
+                  12,
+                  5,
+                  216,
+                  "SCAN refunds"
+                ],
+                [
+                  14,
+                  5,
+                  0,
+                  "USE TEMP B-TREE FOR GROUP BY"
+                ],
+                [
+                  55,
+                  2,
+                  216,
+                  "SCAN o"
+                ],
+                [
+                  63,
+                  2,
+                  0,
+                  "BLOOM FILTER ON r (order_id=?)"
+                ],
+                [
+                  73,
+                  2,
+                  47,
+                  "SEARCH r USING AUTOMATIC COVERING INDEX (order_id=?) LEFT-JOIN"
+                ],
+                [
+                  92,
+                  0,
+                  16,
+                  "SCAN askdb_result"
+                ]
+              ],
+              "cost_guard": "SQLite instruction budget, not PostgreSQL cost estimate"
+            }
+          },
+          {
+            "tool": "execute_sql",
+            "args": {
+              "sql": "SELECT * FROM (SELECT SUM(order_financials.booked_revenue) AS total_booked_revenue FROM order_financials WHERE status = 'paid') AS askdb_result LIMIT 50"
+            },
+            "ok": true,
+            "observation": {
+              "columns": [
+                "total_booked_revenue"
+              ],
+              "rows": [
+                [
+                  350
+                ]
+              ]
+            }
+          }
+        ],
+        "result": {
+          "columns": [
+            "total_booked_revenue"
+          ],
+          "rows": [
+            [
+              350
+            ]
+          ],
+          "sql": "SELECT * FROM (SELECT SUM(order_financials.booked_revenue) AS total_booked_revenue FROM order_financials WHERE status = 'paid') AS askdb_result LIMIT 50",
+          "evidence_hash": "4860c8192272859c83151703b7c5cf74a074ae7157464f55de83dc33a8c30e52"
+        },
+        "clarification": ""
+      }
+    },
+    {
+      "id": "net",
+      "question": "What is total net revenue from paid orders after subtracting all refunds?",
+      "rows": [
+        [
+          315
+        ]
+      ],
+      "correct": false,
+      "seconds": 78.406,
+      "agent": {
+        "thread_id": "b4cc6210-afd2-4d00-938b-6800d447f7e6",
+        "status": "completed",
+        "calls": 5,
+        "errors": 0,
+        "trace": [
+          {
+            "tool": "inspect_schema",
+            "args": {},
+            "ok": true,
+            "observation": {
+              "customers": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "region",
+                  "type": "TEXT"
+                }
+              ],
+              "order_financials": [
+                {
+                  "name": "order_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "customer_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "status",
+                  "type": "TEXT"
+                },
+                {
+                  "name": "booked_revenue",
+                  "type": "NUMERIC"
+                },
+                {
+                  "name": "refund_amount",
+                  "type": ""
+                },
+                {
+                  "name": "net_revenue",
+                  "type": ""
+                }
+              ],
+              "order_items": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "order_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "category",
+                  "type": "TEXT"
+                },
+                {
+                  "name": "quantity",
+                  "type": "INTEGER"
+                }
+              ],
+              "orders": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "customer_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "status",
+                  "type": "TEXT"
+                },
+                {
+                  "name": "total",
+                  "type": "NUMERIC"
+                },
+                {
+                  "name": "created_at",
+                  "type": "TEXT"
+                }
+              ],
+              "refunds": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "order_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "amount",
+                  "type": "NUMERIC"
+                }
+              ]
+            }
+          },
+          {
+            "tool": "metric_definitions",
+            "args": {},
+            "ok": true,
+            "observation": {
+              "booked_revenue": "Use SUM(order_financials.booked_revenue) WHERE status='paid'. Approved view: one row per order.",
+              "net_revenue": "Use SUM(order_financials.net_revenue) WHERE status='paid'. The view pre-aggregates refunds and includes unrefunded orders.",
+              "conversion": "Undefined: there are no exposure/visit denominators in this database",
+              "grain_warning": "Prefer the approved order_financials view for financial metrics. Join customers via customer_id for region. Raw child joins can multiply revenue."
+            }
+          },
+          {
+            "tool": "validate_sql",
+            "args": {
+              "sql": "SELECT SUM(order_financials.booked_revenue) AS booked_revenue, SUM(order_financials.net_revenue) AS net_revenue FROM order_financials WHERE status = 'paid'"
+            },
+            "ok": true,
+            "observation": {
+              "token": "3deb0994b9b6dec4816ee81dd82159c49ab239a41f8579a28befa652ea4133a5",
+              "sql": "SELECT * FROM (SELECT SUM(order_financials.booked_revenue) AS booked_revenue, SUM(order_financials.net_revenue) AS net_revenue FROM order_financials WHERE status = 'paid') AS askdb_result LIMIT 50"
+            }
+          },
+          {
+            "tool": "explain_sql",
+            "args": {
+              "sql": "SELECT * FROM (SELECT SUM(order_financials.booked_revenue) AS booked_revenue, SUM(order_financials.net_revenue) AS net_revenue FROM order_financials WHERE status = 'paid') AS askdb_result LIMIT 50"
+            },
+            "ok": true,
+            "observation": {
+              "details": [
+                [
+                  2,
+                  0,
+                  0,
+                  "CO-ROUTINE askdb_result"
+                ],
+                [
+                  5,
+                  2,
+                  0,
+                  "MATERIALIZE r"
+                ],
+                [
+                  12,
+                  5,
+                  216,
+                  "SCAN refunds"
+                ],
+                [
+                  14,
+                  5,
+                  0,
+                  "USE TEMP B-TREE FOR GROUP BY"
+                ],
+                [
+                  55,
+                  2,
+                  216,
+                  "SCAN o"
+                ],
+                [
+                  63,
+                  2,
+                  0,
+                  "BLOOM FILTER ON r (order_id=?)"
+                ],
+                [
+                  73,
+                  2,
+                  47,
+                  "SEARCH r USING AUTOMATIC COVERING INDEX (order_id=?) LEFT-JOIN"
+                ],
+                [
+                  100,
+                  0,
+                  16,
+                  "SCAN askdb_result"
+                ]
+              ],
+              "cost_guard": "SQLite instruction budget, not PostgreSQL cost estimate"
+            }
+          },
+          {
+            "tool": "execute_sql",
+            "args": {
+              "sql": "SELECT * FROM (SELECT SUM(order_financials.booked_revenue) AS booked_revenue, SUM(order_financials.net_revenue) AS net_revenue FROM order_financials WHERE status = 'paid') AS askdb_result LIMIT 50"
+            },
+            "ok": true,
+            "observation": {
+              "columns": [
+                "booked_revenue",
+                "net_revenue"
+              ],
+              "rows": [
+                [
+                  350,
+                  315
+                ]
+              ]
+            }
+          }
+        ],
+        "result": {
+          "columns": [
+            "booked_revenue",
+            "net_revenue"
+          ],
+          "rows": [
+            [
+              350,
+              315
+            ]
+          ],
+          "sql": "SELECT * FROM (SELECT SUM(order_financials.booked_revenue) AS booked_revenue, SUM(order_financials.net_revenue) AS net_revenue FROM order_financials WHERE status = 'paid') AS askdb_result LIMIT 50",
+          "evidence_hash": "4de3f5f0ba9b75ff3034c6fb6bf767b288f4fc3995be5a5f94b4e9fc8efd66e0"
+        },
+        "clarification": ""
+      }
+    },
+    {
+      "id": "region_net",
+      "question": "Show net revenue by customer region for paid orders, after all refunds. Avoid multiplying orders by their items.",
+      "rows": [
+        [
+          "East",
+          135
+        ],
+        [
+          "West",
+          180
+        ]
+      ],
+      "correct": false,
+      "seconds": 56.897,
+      "agent": {
+        "thread_id": "8a540c75-4833-4ce0-ab7b-7a8856d718c0",
+        "status": "needs_clarification",
+        "calls": 5,
+        "errors": 1,
+        "trace": [
+          {
+            "tool": "inspect_schema",
+            "args": {},
+            "ok": true,
+            "observation": {
+              "customers": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "region",
+                  "type": "TEXT"
+                }
+              ],
+              "order_financials": [
+                {
+                  "name": "order_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "customer_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "status",
+                  "type": "TEXT"
+                },
+                {
+                  "name": "booked_revenue",
+                  "type": "NUMERIC"
+                },
+                {
+                  "name": "refund_amount",
+                  "type": ""
+                },
+                {
+                  "name": "net_revenue",
+                  "type": ""
+                }
+              ],
+              "order_items": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "order_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "category",
+                  "type": "TEXT"
+                },
+                {
+                  "name": "quantity",
+                  "type": "INTEGER"
+                }
+              ],
+              "orders": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "customer_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "status",
+                  "type": "TEXT"
+                },
+                {
+                  "name": "total",
+                  "type": "NUMERIC"
+                },
+                {
+                  "name": "created_at",
+                  "type": "TEXT"
+                }
+              ],
+              "refunds": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "order_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "amount",
+                  "type": "NUMERIC"
+                }
+              ]
+            }
+          },
+          {
+            "tool": "metric_definitions",
+            "args": {},
+            "ok": true,
+            "observation": {
+              "booked_revenue": "Use SUM(order_financials.booked_revenue) WHERE status='paid'. Approved view: one row per order.",
+              "net_revenue": "Use SUM(order_financials.net_revenue) WHERE status='paid'. The view pre-aggregates refunds and includes unrefunded orders.",
+              "conversion": "Undefined: there are no exposure/visit denominators in this database",
+              "grain_warning": "Prefer the approved order_financials view for financial metrics. Join customers via customer_id for region. Raw child joins can multiply revenue."
+            }
+          },
+          {
+            "tool": "validate_sql",
+            "args": {
+              "sql": "SELECT customer_region, SUM(order_financials.net_revenue) AS net_revenue FROM order_financials GROUP BY customer_region"
+            },
+            "ok": true,
+            "observation": {
+              "token": "fc4b922bb16bbab30a40a24ab6fb04165ebb8e52411816c5dbea399169aa6928",
+              "sql": "SELECT * FROM (SELECT customer_region, SUM(order_financials.net_revenue) AS net_revenue FROM order_financials GROUP BY customer_region) AS askdb_result LIMIT 50"
+            }
+          },
+          {
+            "tool": "explain_sql",
+            "args": {
+              "sql": "SELECT * FROM (SELECT customer_region, SUM(order_financials.net_revenue) AS net_revenue FROM order_financials GROUP BY customer_region) AS askdb_result LIMIT 50"
+            },
+            "ok": false,
+            "error": "no such column: customer_region"
+          },
+          {
+            "tool": "clarify",
+            "args": {
+              "question": "What is the correct column name for customer region?"
+            },
+            "ok": true,
+            "observation": {
+              "question": "What is the correct column name for customer region?"
+            }
+          }
+        ],
+        "result": {},
+        "clarification": "What is the correct column name for customer region?"
+      }
+    },
+    {
+      "id": "ambiguous",
+      "question": "What is our revenue?",
+      "clarify": true,
+      "correct": false,
+      "seconds": 69.203,
+      "agent": {
+        "thread_id": "bcfd1ce1-c0af-4a75-8e7f-ee6e3b371147",
+        "status": "completed",
+        "calls": 5,
+        "errors": 0,
+        "trace": [
+          {
+            "tool": "inspect_schema",
+            "args": {},
+            "ok": true,
+            "observation": {
+              "customers": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "region",
+                  "type": "TEXT"
+                }
+              ],
+              "order_financials": [
+                {
+                  "name": "order_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "customer_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "status",
+                  "type": "TEXT"
+                },
+                {
+                  "name": "booked_revenue",
+                  "type": "NUMERIC"
+                },
+                {
+                  "name": "refund_amount",
+                  "type": ""
+                },
+                {
+                  "name": "net_revenue",
+                  "type": ""
+                }
+              ],
+              "order_items": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "order_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "category",
+                  "type": "TEXT"
+                },
+                {
+                  "name": "quantity",
+                  "type": "INTEGER"
+                }
+              ],
+              "orders": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "customer_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "status",
+                  "type": "TEXT"
+                },
+                {
+                  "name": "total",
+                  "type": "NUMERIC"
+                },
+                {
+                  "name": "created_at",
+                  "type": "TEXT"
+                }
+              ],
+              "refunds": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "order_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "amount",
+                  "type": "NUMERIC"
+                }
+              ]
+            }
+          },
+          {
+            "tool": "metric_definitions",
+            "args": {},
+            "ok": true,
+            "observation": {
+              "booked_revenue": "Use SUM(order_financials.booked_revenue) WHERE status='paid'. Approved view: one row per order.",
+              "net_revenue": "Use SUM(order_financials.net_revenue) WHERE status='paid'. The view pre-aggregates refunds and includes unrefunded orders.",
+              "conversion": "Undefined: there are no exposure/visit denominators in this database",
+              "grain_warning": "Prefer the approved order_financials view for financial metrics. Join customers via customer_id for region. Raw child joins can multiply revenue."
+            }
+          },
+          {
+            "tool": "validate_sql",
+            "args": {
+              "sql": "SELECT SUM(order_financials.booked_revenue) AS booked_revenue FROM order_financials WHERE status = 'paid'"
+            },
+            "ok": true,
+            "observation": {
+              "token": "961138591dd26fc5ad0646d36abcb02af631b22943c38aba6259fc45a9174342",
+              "sql": "SELECT * FROM (SELECT SUM(order_financials.booked_revenue) AS booked_revenue FROM order_financials WHERE status = 'paid') AS askdb_result LIMIT 50"
+            }
+          },
+          {
+            "tool": "explain_sql",
+            "args": {
+              "sql": "SELECT * FROM (SELECT SUM(order_financials.booked_revenue) AS booked_revenue FROM order_financials WHERE status = 'paid') AS askdb_result LIMIT 50"
+            },
+            "ok": true,
+            "observation": {
+              "details": [
+                [
+                  2,
+                  0,
+                  0,
+                  "CO-ROUTINE askdb_result"
+                ],
+                [
+                  5,
+                  2,
+                  0,
+                  "MATERIALIZE r"
+                ],
+                [
+                  12,
+                  5,
+                  216,
+                  "SCAN refunds"
+                ],
+                [
+                  14,
+                  5,
+                  0,
+                  "USE TEMP B-TREE FOR GROUP BY"
+                ],
+                [
+                  55,
+                  2,
+                  216,
+                  "SCAN o"
+                ],
+                [
+                  63,
+                  2,
+                  0,
+                  "BLOOM FILTER ON r (order_id=?)"
+                ],
+                [
+                  73,
+                  2,
+                  47,
+                  "SEARCH r USING AUTOMATIC COVERING INDEX (order_id=?) LEFT-JOIN"
+                ],
+                [
+                  92,
+                  0,
+                  16,
+                  "SCAN askdb_result"
+                ]
+              ],
+              "cost_guard": "SQLite instruction budget, not PostgreSQL cost estimate"
+            }
+          },
+          {
+            "tool": "execute_sql",
+            "args": {
+              "sql": "SELECT * FROM (SELECT SUM(order_financials.booked_revenue) AS booked_revenue FROM order_financials WHERE status = 'paid') AS askdb_result LIMIT 50"
+            },
+            "ok": true,
+            "observation": {
+              "columns": [
+                "booked_revenue"
+              ],
+              "rows": [
+                [
+                  350
+                ]
+              ]
+            }
+          }
+        ],
+        "result": {
+          "columns": [
+            "booked_revenue"
+          ],
+          "rows": [
+            [
+              350
+            ]
+          ],
+          "sql": "SELECT * FROM (SELECT SUM(order_financials.booked_revenue) AS booked_revenue FROM order_financials WHERE status = 'paid') AS askdb_result LIMIT 50",
+          "evidence_hash": "938077253f6a8c534c92f060d69c56a717317b983a2daa3613f8938225e64f2e"
+        },
+        "clarification": ""
+      }
+    }
+  ]
+}

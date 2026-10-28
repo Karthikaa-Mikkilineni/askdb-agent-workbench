@@ -1,0 +1,4 @@
+{
+  "case": "booked",
+  "raw_response": "{\"tool\": \"validate_sql\", \"args\": {\"sql\": \"SELECT SUM(orders.total) AS booked_revenue FROM orders WHERE status = 'paid'\"}}\n\n{\"tool\": \"explain_sql\", \"args\": {\"sql\": \"SELECT SUM(orders.total) AS booked_revenue FROM orders WHERE status = 'paid'\"}}\n\n{\"tool\": \"execute_sql\", \"args\": {\"sql\": \"SELECT SUM(orders.total) AS booked_revenue FROM orders WHERE status = 'paid'\"}}\n\n{\"tool\": \"finish\", \"args\": {}}"
+}
