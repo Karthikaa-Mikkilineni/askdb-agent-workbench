@@ -58,18 +58,16 @@ or generalized safety/accuracy percentage is claimed.
 
 From the project root in this workspace:
 
-
 ```bash
-PYTHONPATH=backend /tmp/askdb-clean-env/bin/p`hon -m p`est agent_tests backend/tests -q
-ASKDB_CAPTURE_TRACE=evidence/postgres-recovery-trace.json ASKDB_PYTHON=/tmp/askdb-clean-env/bin/p`hon node devtools/check-postgres.mjs
+PYTHONPATH=backend /tmp/askdb-clean-env/bin/python -m pytest agent_tests backend/tests -q
+ASKDB_CAPTURE_TRACE=evidence/postgres-recovery-trace.json ASKDB_PYTHON=/tmp/askdb-clean-env/bin/python node devtools/check-postgres.mjs
 cd frontend && npm run build
 ```
 
 The separate model environment ran:
 
-
 ```bash
-/tmp/askdb-agent-env/bin/p`hon evaluate_agent.py --model /tmp/askdb-qwen3-1.7 --model-name Qwen/Qwen3-1.7B --output evidence/final-model-evaluation.json
+/tmp/askdb-agent-env/bin/python evaluate_agent.py --model /tmp/askdb-qwen3-1.7 --model-name Qwen/Qwen3-1.7B --output evidence/final-model-evaluation.json
 ```
 
 README.md gives portable setup commands. Tests were also run after installing
