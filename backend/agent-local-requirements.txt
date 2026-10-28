@@ -1,0 +1,4 @@
+-r agent-requirements.txt
+transformers==5.21.0
+torch==2.14.1
+sentencepiece==0.2.2
