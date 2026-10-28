@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "checks": [
+    "24 complete observations",
+    "six unique contexts per config",
+    "matching paired prompt hashes",
+    "emitted token count reconciliation",
+    "time boundaries",
+    "kernel RSS >3GB and peak >= baseline",
+    "no generation token caps",
+    "12 identical output pairs",
+    "no paired correctness regressions"
+  ],
+  "scope": "record-integrity checks, not an accuracy certification"
+}

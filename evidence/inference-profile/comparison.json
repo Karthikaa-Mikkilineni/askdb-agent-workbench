@@ -1,0 +1,142 @@
+{
+  "scope": "six development contexts with supplied tool history; not held-out full-agent accuracy",
+  "summary": {
+    "kv_cache_1t": {
+      "requests": 12,
+      "unique_cases": 6,
+      "correct": 6,
+      "valid_actions": 12,
+      "median_generation_seconds": 35.301524272500046,
+      "median_ttft_seconds": 14.309206807999999,
+      "median_tokens_per_second": 1.146447073166461,
+      "sampled_peak_rss_mib": 4015.63671875,
+      "process_peak_rss_mib_including_load": 4014.9609375,
+      "token_caps_hit": 0
+    },
+    "kv_cache_4t": {
+      "requests": 12,
+      "unique_cases": 6,
+      "correct": 6,
+      "valid_actions": 12,
+      "median_generation_seconds": 15.019097789499938,
+      "median_ttft_seconds": 5.654387886999757,
+      "median_tokens_per_second": 2.6783995543387116,
+      "sampled_peak_rss_mib": 4018.37890625,
+      "process_peak_rss_mib_including_load": 4017.56640625,
+      "token_caps_hit": 0
+    }
+  },
+  "paired": [
+    {
+      "case_id": "paid_count",
+      "repetition": 1,
+      "latency_speedup": 2.592140597948897,
+      "same_tokens": true,
+      "one_thread_correct": true,
+      "four_thread_correct": true
+    },
+    {
+      "case_id": "ambiguous",
+      "repetition": 0,
+      "latency_speedup": 2.3641379008507433,
+      "same_tokens": true,
+      "one_thread_correct": false,
+      "four_thread_correct": false
+    },
+    {
+      "case_id": "booked",
+      "repetition": 0,
+      "latency_speedup": 2.309831907062888,
+      "same_tokens": true,
+      "one_thread_correct": true,
+      "four_thread_correct": true
+    },
+    {
+      "case_id": "booked",
+      "repetition": 1,
+      "latency_speedup": 2.32622976931725,
+      "same_tokens": true,
+      "one_thread_correct": true,
+      "four_thread_correct": true
+    },
+    {
+      "case_id": "net",
+      "repetition": 1,
+      "latency_speedup": 2.2933823196811876,
+      "same_tokens": true,
+      "one_thread_correct": false,
+      "four_thread_correct": false
+    },
+    {
+      "case_id": "order_count",
+      "repetition": 1,
+      "latency_speedup": 2.282139333098832,
+      "same_tokens": true,
+      "one_thread_correct": true,
+      "four_thread_correct": true
+    },
+    {
+      "case_id": "ambiguous",
+      "repetition": 1,
+      "latency_speedup": 2.3161081520968687,
+      "same_tokens": true,
+      "one_thread_correct": false,
+      "four_thread_correct": false
+    },
+    {
+      "case_id": "net",
+      "repetition": 0,
+      "latency_speedup": 2.1979966718707793,
+      "same_tokens": true,
+      "one_thread_correct": false,
+      "four_thread_correct": false
+    },
+    {
+      "case_id": "region_net",
+      "repetition": 0,
+      "latency_speedup": 2.281907861992271,
+      "same_tokens": true,
+      "one_thread_correct": false,
+      "four_thread_correct": false
+    },
+    {
+      "case_id": "order_count",
+      "repetition": 0,
+      "latency_speedup": 2.323401635360687,
+      "same_tokens": true,
+      "one_thread_correct": true,
+      "four_thread_correct": true
+    },
+    {
+      "case_id": "paid_count",
+      "repetition": 0,
+      "latency_speedup": 2.281193660359619,
+      "same_tokens": true,
+      "one_thread_correct": true,
+      "four_thread_correct": true
+    },
+    {
+      "case_id": "region_net",
+      "repetition": 1,
+      "latency_speedup": 2.4420449749641757,
+      "same_tokens": true,
+      "one_thread_correct": false,
+      "four_thread_correct": false
+    }
+  ],
+  "median_paired_speedup": 2.312970029579878,
+  "token_identical_pairs": 12,
+  "quality_gate": {
+    "no_paired_correctness_regressions": true,
+    "all_measured_answers_correct": false,
+    "interpretation": "Timing can guide local configuration; any failed strict answer prevents an unattended-use recommendation."
+  },
+  "limitations": [
+    "single CPU host; serial requests; no concurrency or cloud throughput",
+    "TTFT is generation start to first emitted token; excludes network and model load",
+    "RSS sampled every 5ms includes model and allocator; not exact tensor/activation memory",
+    "fixed config order can include thermal and runtime drift",
+    "both measured configurations use KV caching; only intra-op CPU thread count changes",
+    "same six fixtures used during development; repeated outputs are not independent quality trials"
+  ]
+}

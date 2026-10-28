@@ -1,0 +1,195 @@
+{
+  "model": "Qwen/Qwen3-1.7B",
+  "mode": "real local CPU inference",
+  "transport": "real localhost HTTP through FastAPI/Uvicorn",
+  "data": "synthetic commerce",
+  "cases": [
+    {
+      "id": "order_count",
+      "question": "How many orders are in the database, including cancelled orders?",
+      "rows": [
+        [
+          4
+        ]
+      ],
+      "correct": true,
+      "seconds": 33.903,
+      "agent": {
+        "thread_id": "2f50602b-176e-487e-8fe2-4a183f1402ef",
+        "status": "completed",
+        "calls": 4,
+        "errors": 0,
+        "trace": [
+          {
+            "tool": "inspect_schema",
+            "args": {},
+            "ok": true,
+            "observation": {
+              "customers": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "region",
+                  "type": "TEXT"
+                }
+              ],
+              "order_financials": [
+                {
+                  "name": "order_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "customer_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "status",
+                  "type": "TEXT"
+                },
+                {
+                  "name": "booked_revenue",
+                  "type": "NUMERIC"
+                },
+                {
+                  "name": "refund_amount",
+                  "type": ""
+                },
+                {
+                  "name": "net_revenue",
+                  "type": ""
+                }
+              ],
+              "order_items": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "order_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "category",
+                  "type": "TEXT"
+                },
+                {
+                  "name": "quantity",
+                  "type": "INTEGER"
+                }
+              ],
+              "orders": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "customer_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "status",
+                  "type": "TEXT"
+                },
+                {
+                  "name": "total",
+                  "type": "NUMERIC"
+                },
+                {
+                  "name": "created_at",
+                  "type": "TEXT"
+                }
+              ],
+              "refunds": [
+                {
+                  "name": "id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "order_id",
+                  "type": "INTEGER"
+                },
+                {
+                  "name": "amount",
+                  "type": "NUMERIC"
+                }
+              ]
+            }
+          },
+          {
+            "tool": "validate_sql",
+            "args": {
+              "sql": "SELECT COUNT(*) FROM orders;"
+            },
+            "ok": true,
+            "observation": {
+              "token": "a73314806ff119a64491ea313a1e4808e51e43377fe1adad871391c54160585d",
+              "sql": "SELECT * FROM (SELECT COUNT(*) FROM orders) AS askdb_result LIMIT 50"
+            }
+          },
+          {
+            "tool": "explain_sql",
+            "args": {
+              "sql": "SELECT COUNT(*) FROM orders;"
+            },
+            "ok": true,
+            "observation": {
+              "details": [
+                [
+                  2,
+                  0,
+                  0,
+                  "CO-ROUTINE askdb_result"
+                ],
+                [
+                  6,
+                  2,
+                  0,
+                  "SCAN orders"
+                ],
+                [
+                  11,
+                  0,
+                  16,
+                  "SCAN askdb_result"
+                ]
+              ],
+              "cost_guard": "SQLite instruction budget, not PostgreSQL cost estimate"
+            }
+          },
+          {
+            "tool": "execute_sql",
+            "args": {
+              "sql": "SELECT COUNT(*) FROM orders;"
+            },
+            "ok": true,
+            "observation": {
+              "columns": [
+                "COUNT(*)"
+              ],
+              "rows": [
+                [
+                  4
+                ]
+              ]
+            }
+          }
+        ],
+        "result": {
+          "columns": [
+            "COUNT(*)"
+          ],
+          "rows": [
+            [
+              4
+            ]
+          ],
+          "sql": "SELECT * FROM (SELECT COUNT(*) FROM orders) AS askdb_result LIMIT 50",
+          "evidence_hash": "7986e1cb2ae78480b9cb4fcefb874e09867e7fee7009e68685d2e3c6f83464f2"
+        },
+        "clarification": ""
+      }
+    }
+  ]
+}

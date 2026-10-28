@@ -1,0 +1,438 @@
+{
+  "config": "kv_cache_4t",
+  "use_cache": true,
+  "model": "Qwen/Qwen3-1.7B",
+  "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+  "parameters": 1720574976,
+  "dtype": "torch.bfloat16",
+  "threads": 4,
+  "max_new_tokens": 128,
+  "load_seconds": 1.3862957870001082,
+  "warmup_excluded": {
+    "case_id": "order_count",
+    "prompt_sha256": "90f25d560c0702a21ecd6063787377a0a3ea5904ecea8b0dc5221de084b92747",
+    "prompt_tokens": 756,
+    "generated_tokens": 20,
+    "text": "{\"tool\": \"validate_sql\", \"args\": {\"sql\": \"SELECT COUNT(*) FROM orders\"}}",
+    "token_ids_sha256": "ae700b5790b40fb8d2402d80482ed5f73c98c2dcc5e52940ac4d76ff6d24c3cb",
+    "generation_seconds": 10.449886336999953,
+    "request_seconds": 10.468621579999763,
+    "ttft_seconds": 5.911967920000279,
+    "tokens_per_second": 1.9138964152352473,
+    "decode_tokens_per_second": 4.187090709321703,
+    "rss_before_mib": 1121.57421875,
+    "sampled_peak_rss_mib": 3977.94140625,
+    "rss_growth_mib": 2856.3671875,
+    "token_cap_hit": false,
+    "token_events": 20
+  },
+  "environment": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "torch": "2.14.1+cpu",
+    "transformers": "5.21.0",
+    "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+    "cpu_count": 9,
+    "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+    "cgroup_cpu_max": "800000 100000",
+    "cgroup_memory_max": "8589934592"
+  },
+  "process_peak_rss_mib_including_load": 4017.56640625,
+  "measurements": [
+    {
+      "case_id": "paid_count",
+      "prompt_sha256": "fcf044169a173bfe06a3954963d30da2eda1206f6e96eb0a26119eb06f55ca76",
+      "prompt_tokens": 751,
+      "generated_tokens": 27,
+      "text": "{\"tool\": \"validate_sql\", \"args\": {\"sql\": \"SELECT COUNT(*) FROM orders WHERE status = 'paid'\"}}",
+      "token_ids_sha256": "b08014d630d6f04c96ca82fb507af595931069d007918741a8f0ee14d49c7a3f",
+      "generation_seconds": 10.65022797599977,
+      "request_seconds": 10.652806905000034,
+      "ttft_seconds": 4.721605847999854,
+      "tokens_per_second": 2.5351569995350665,
+      "decode_tokens_per_second": 4.386655338383226,
+      "rss_before_mib": 3977.9453125,
+      "sampled_peak_rss_mib": 3988.03515625,
+      "rss_growth_mib": 10.08984375,
+      "token_cap_hit": false,
+      "token_events": 27,
+      "repetition": 1,
+      "quality": {
+        "valid_action": true,
+        "correct": true,
+        "rows": [
+          [
+            3
+          ]
+        ],
+        "action": {
+          "tool": "validate_sql",
+          "args": {
+            "sql": "SELECT COUNT(*) FROM orders WHERE status = 'paid'"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "ambiguous",
+      "prompt_sha256": "0aaab792acb902327fa430fb418a93755a957a74913b3f2c354fc90097e90393",
+      "prompt_tokens": 749,
+      "generated_tokens": 42,
+      "text": "{\"tool\": \"validate_sql\", \"args\": {\"sql\": \"SELECT SUM(order_financials.booked_revenue) AS booked_revenue FROM order_financials WHERE status = 'paid'\"}}",
+      "token_ids_sha256": "f40ca6ed8ddb1bde809b391a60ae8d39214fefb0f8593403bcdcd3682a32665a",
+      "generation_seconds": 15.729819245999806,
+      "request_seconds": 15.732861936000063,
+      "ttft_seconds": 6.090640346999862,
+      "tokens_per_second": 2.6700878975885796,
+      "decode_tokens_per_second": 4.253556709456098,
+      "rss_before_mib": 3947.5078125,
+      "sampled_peak_rss_mib": 3992.46875,
+      "rss_growth_mib": 44.9609375,
+      "token_cap_hit": false,
+      "token_events": 42,
+      "repetition": 0,
+      "quality": {
+        "valid_action": true,
+        "correct": false,
+        "rows": null,
+        "action": {
+          "tool": "validate_sql",
+          "args": {
+            "sql": "SELECT SUM(order_financials.booked_revenue) AS booked_revenue FROM order_financials WHERE status = 'paid'"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "booked",
+      "prompt_sha256": "5657283a19c91d13b10ab65df3b8ab58055132bc61af3388026343c0084d0dc2",
+      "prompt_tokens": 758,
+      "generated_tokens": 44,
+      "text": "{\"tool\": \"validate_sql\", \"args\": {\"sql\": \"SELECT SUM(order_financials.booked_revenue) AS total_booked_revenue FROM order_financials WHERE status = 'paid'\"}}",
+      "token_ids_sha256": "61738ebf82d177a6cc4c4fd8e68848049b4d4ccc76adabe804a53419863a35a2",
+      "generation_seconds": 16.740045226999882,
+      "request_seconds": 16.743241084000147,
+      "ttft_seconds": 6.097641528999702,
+      "tokens_per_second": 2.6284277851909716,
+      "decode_tokens_per_second": 4.040511844335234,
+      "rss_before_mib": 3952.08203125,
+      "sampled_peak_rss_mib": 4018.37890625,
+      "rss_growth_mib": 66.296875,
+      "token_cap_hit": false,
+      "token_events": 44,
+      "repetition": 0,
+      "quality": {
+        "valid_action": true,
+        "correct": true,
+        "rows": [
+          [
+            350
+          ]
+        ],
+        "action": {
+          "tool": "validate_sql",
+          "args": {
+            "sql": "SELECT SUM(order_financials.booked_revenue) AS total_booked_revenue FROM order_financials WHERE status = 'paid'"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "booked",
+      "prompt_sha256": "5657283a19c91d13b10ab65df3b8ab58055132bc61af3388026343c0084d0dc2",
+      "prompt_tokens": 758,
+      "generated_tokens": 44,
+      "text": "{\"tool\": \"validate_sql\", \"args\": {\"sql\": \"SELECT SUM(order_financials.booked_revenue) AS total_booked_revenue FROM order_financials WHERE status = 'paid'\"}}",
+      "token_ids_sha256": "61738ebf82d177a6cc4c4fd8e68848049b4d4ccc76adabe804a53419863a35a2",
+      "generation_seconds": 16.376899689999846,
+      "request_seconds": 16.380505858000106,
+      "ttft_seconds": 6.00143402599997,
+      "tokens_per_second": 2.686711211088844,
+      "decode_tokens_per_second": 4.1444729565559575,
+      "rss_before_mib": 3974.2578125,
+      "sampled_peak_rss_mib": 4003.74609375,
+      "rss_growth_mib": 29.48828125,
+      "token_cap_hit": false,
+      "token_events": 44,
+      "repetition": 1,
+      "quality": {
+        "valid_action": true,
+        "correct": true,
+        "rows": [
+          [
+            350
+          ]
+        ],
+        "action": {
+          "tool": "validate_sql",
+          "args": {
+            "sql": "SELECT SUM(order_financials.booked_revenue) AS total_booked_revenue FROM order_financials WHERE status = 'paid'"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "net",
+      "prompt_sha256": "fd7546e7a180b4983fa8bb483da75bab245d1c197eb7cadc28a286116027899c",
+      "prompt_tokens": 758,
+      "generated_tokens": 56,
+      "text": "{\"tool\": \"validate_sql\", \"args\": {\"sql\": \"SELECT SUM(order_financials.booked_revenue) AS booked_revenue, SUM(order_financials.net_revenue) AS net_revenue FROM order_financials WHERE status = 'paid'\"}}",
+      "token_ids_sha256": "b909dc291f1739b2c5299665857a0279a5d5a26b8e6da0bfcac7f98b34b5c189",
+      "generation_seconds": 18.98942216100022,
+      "request_seconds": 18.992680669000038,
+      "ttft_seconds": 5.895728951999899,
+      "tokens_per_second": 2.9490102187001113,
+      "decode_tokens_per_second": 4.200553845621264,
+      "rss_before_mib": 3962.41796875,
+      "sampled_peak_rss_mib": 4003.74609375,
+      "rss_growth_mib": 41.328125,
+      "token_cap_hit": false,
+      "token_events": 56,
+      "repetition": 1,
+      "quality": {
+        "valid_action": true,
+        "correct": false,
+        "rows": [
+          [
+            350,
+            315
+          ]
+        ],
+        "action": {
+          "tool": "validate_sql",
+          "args": {
+            "sql": "SELECT SUM(order_financials.booked_revenue) AS booked_revenue, SUM(order_financials.net_revenue) AS net_revenue FROM order_financials WHERE status = 'paid'"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "order_count",
+      "prompt_sha256": "90f25d560c0702a21ecd6063787377a0a3ea5904ecea8b0dc5221de084b92747",
+      "prompt_tokens": 756,
+      "generated_tokens": 20,
+      "text": "{\"tool\": \"validate_sql\", \"args\": {\"sql\": \"SELECT COUNT(*) FROM orders\"}}",
+      "token_ids_sha256": "ae700b5790b40fb8d2402d80482ed5f73c98c2dcc5e52940ac4d76ff6d24c3cb",
+      "generation_seconds": 9.8022570359999,
+      "request_seconds": 9.805366802000208,
+      "ttft_seconds": 5.619034774999818,
+      "tokens_per_second": 2.0403464147642456,
+      "decode_tokens_per_second": 4.5421508468085685,
+      "rss_before_mib": 3963.015625,
+      "sampled_peak_rss_mib": 3997.68359375,
+      "rss_growth_mib": 34.66796875,
+      "token_cap_hit": false,
+      "token_events": 20,
+      "repetition": 1,
+      "quality": {
+        "valid_action": true,
+        "correct": true,
+        "rows": [
+          [
+            4
+          ]
+        ],
+        "action": {
+          "tool": "validate_sql",
+          "args": {
+            "sql": "SELECT COUNT(*) FROM orders"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "ambiguous",
+      "prompt_sha256": "0aaab792acb902327fa430fb418a93755a957a74913b3f2c354fc90097e90393",
+      "prompt_tokens": 749,
+      "generated_tokens": 42,
+      "text": "{\"tool\": \"validate_sql\", \"args\": {\"sql\": \"SELECT SUM(order_financials.booked_revenue) AS booked_revenue FROM order_financials WHERE status = 'paid'\"}}",
+      "token_ids_sha256": "f40ca6ed8ddb1bde809b391a60ae8d39214fefb0f8593403bcdcd3682a32665a",
+      "generation_seconds": 15.430555050999828,
+      "request_seconds": 15.433670620999692,
+      "ttft_seconds": 5.461308114000076,
+      "tokens_per_second": 2.721872276219811,
+      "decode_tokens_per_second": 4.112727419005391,
+      "rss_before_mib": 3952.23046875,
+      "sampled_peak_rss_mib": 4010.3046875,
+      "rss_growth_mib": 58.07421875,
+      "token_cap_hit": false,
+      "token_events": 42,
+      "repetition": 1,
+      "quality": {
+        "valid_action": true,
+        "correct": false,
+        "rows": null,
+        "action": {
+          "tool": "validate_sql",
+          "args": {
+            "sql": "SELECT SUM(order_financials.booked_revenue) AS booked_revenue FROM order_financials WHERE status = 'paid'"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "net",
+      "prompt_sha256": "fd7546e7a180b4983fa8bb483da75bab245d1c197eb7cadc28a286116027899c",
+      "prompt_tokens": 758,
+      "generated_tokens": 56,
+      "text": "{\"tool\": \"validate_sql\", \"args\": {\"sql\": \"SELECT SUM(order_financials.booked_revenue) AS booked_revenue, SUM(order_financials.net_revenue) AS net_revenue FROM order_financials WHERE status = 'paid'\"}}",
+      "token_ids_sha256": "b909dc291f1739b2c5299665857a0279a5d5a26b8e6da0bfcac7f98b34b5c189",
+      "generation_seconds": 19.238738596000076,
+      "request_seconds": 19.242222173999835,
+      "ttft_seconds": 5.877148277999822,
+      "tokens_per_second": 2.910793746719078,
+      "decode_tokens_per_second": 4.116406314173488,
+      "rss_before_mib": 3969.46484375,
+      "sampled_peak_rss_mib": 4008.20703125,
+      "rss_growth_mib": 38.7421875,
+      "token_cap_hit": false,
+      "token_events": 56,
+      "repetition": 0,
+      "quality": {
+        "valid_action": true,
+        "correct": false,
+        "rows": [
+          [
+            350,
+            315
+          ]
+        ],
+        "action": {
+          "tool": "validate_sql",
+          "args": {
+            "sql": "SELECT SUM(order_financials.booked_revenue) AS booked_revenue, SUM(order_financials.net_revenue) AS net_revenue FROM order_financials WHERE status = 'paid'"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "region_net",
+      "prompt_sha256": "967f7374b86ff0fe86edb463f62c7ad0fc8f5ed00a48427ab77ee387191a1f70",
+      "prompt_tokens": 765,
+      "generated_tokens": 41,
+      "text": "{\"tool\": \"validate_sql\", \"args\": {\"sql\": \"SELECT customer_region, SUM(order_financials.net_revenue) AS net_revenue FROM order_financials GROUP BY customer_region\"}}",
+      "token_ids_sha256": "a1fc106db6f1e1c4bd9a6cdef536c150af474913b1a4e22885ac6f4a84a0c096",
+      "generation_seconds": 14.607640528000047,
+      "request_seconds": 14.610485517999678,
+      "ttft_seconds": 5.4430934900001375,
+      "tokens_per_second": 2.806750338729301,
+      "decode_tokens_per_second": 4.36474975701794,
+      "rss_before_mib": 3966.8828125,
+      "sampled_peak_rss_mib": 4017.86328125,
+      "rss_growth_mib": 50.98046875,
+      "token_cap_hit": false,
+      "token_events": 41,
+      "repetition": 0,
+      "quality": {
+        "valid_action": true,
+        "correct": false,
+        "rows": null,
+        "action": {
+          "tool": "validate_sql",
+          "args": {
+            "sql": "SELECT customer_region, SUM(order_financials.net_revenue) AS net_revenue FROM order_financials GROUP BY customer_region"
+          }
+        },
+        "error": "OperationalError: no such column: customer_region"
+      }
+    },
+    {
+      "case_id": "order_count",
+      "prompt_sha256": "90f25d560c0702a21ecd6063787377a0a3ea5904ecea8b0dc5221de084b92747",
+      "prompt_tokens": 756,
+      "generated_tokens": 20,
+      "text": "{\"tool\": \"validate_sql\", \"args\": {\"sql\": \"SELECT COUNT(*) FROM orders\"}}",
+      "token_ids_sha256": "ae700b5790b40fb8d2402d80482ed5f73c98c2dcc5e52940ac4d76ff6d24c3cb",
+      "generation_seconds": 9.693801664000148,
+      "request_seconds": 9.696895390999998,
+      "ttft_seconds": 5.253836955000224,
+      "tokens_per_second": 2.0631740459755807,
+      "decode_tokens_per_second": 4.279469273257224,
+      "rss_before_mib": 3976.16796875,
+      "sampled_peak_rss_mib": 4002.1796875,
+      "rss_growth_mib": 26.01171875,
+      "token_cap_hit": false,
+      "token_events": 20,
+      "repetition": 0,
+      "quality": {
+        "valid_action": true,
+        "correct": true,
+        "rows": [
+          [
+            4
+          ]
+        ],
+        "action": {
+          "tool": "validate_sql",
+          "args": {
+            "sql": "SELECT COUNT(*) FROM orders"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "paid_count",
+      "prompt_sha256": "fcf044169a173bfe06a3954963d30da2eda1206f6e96eb0a26119eb06f55ca76",
+      "prompt_tokens": 751,
+      "generated_tokens": 27,
+      "text": "{\"tool\": \"validate_sql\", \"args\": {\"sql\": \"SELECT COUNT(*) FROM orders WHERE status = 'paid'\"}}",
+      "token_ids_sha256": "b08014d630d6f04c96ca82fb507af595931069d007918741a8f0ee14d49c7a3f",
+      "generation_seconds": 11.673351140999785,
+      "request_seconds": 11.676150872000107,
+      "ttft_seconds": 5.689740998999696,
+      "tokens_per_second": 2.3129604921391524,
+      "decode_tokens_per_second": 4.345336253608415,
+      "rss_before_mib": 3952.27734375,
+      "sampled_peak_rss_mib": 3995.890625,
+      "rss_growth_mib": 43.61328125,
+      "token_cap_hit": false,
+      "token_events": 27,
+      "repetition": 0,
+      "quality": {
+        "valid_action": true,
+        "correct": true,
+        "rows": [
+          [
+            3
+          ]
+        ],
+        "action": {
+          "tool": "validate_sql",
+          "args": {
+            "sql": "SELECT COUNT(*) FROM orders WHERE status = 'paid'"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "region_net",
+      "prompt_sha256": "967f7374b86ff0fe86edb463f62c7ad0fc8f5ed00a48427ab77ee387191a1f70",
+      "prompt_tokens": 765,
+      "generated_tokens": 41,
+      "text": "{\"tool\": \"validate_sql\", \"args\": {\"sql\": \"SELECT customer_region, SUM(order_financials.net_revenue) AS net_revenue FROM order_financials GROUP BY customer_region\"}}",
+      "token_ids_sha256": "a1fc106db6f1e1c4bd9a6cdef536c150af474913b1a4e22885ac6f4a84a0c096",
+      "generation_seconds": 14.276647055000012,
+      "request_seconds": 14.279132160000245,
+      "ttft_seconds": 5.190953384000295,
+      "tokens_per_second": 2.871822763569745,
+      "decode_tokens_per_second": 4.4026219931509125,
+      "rss_before_mib": 3956.796875,
+      "sampled_peak_rss_mib": 4001.44140625,
+      "rss_growth_mib": 44.64453125,
+      "token_cap_hit": false,
+      "token_events": 41,
+      "repetition": 1,
+      "quality": {
+        "valid_action": true,
+        "correct": false,
+        "rows": null,
+        "action": {
+          "tool": "validate_sql",
+          "args": {
+            "sql": "SELECT customer_region, SUM(order_financials.net_revenue) AS net_revenue FROM order_financials GROUP BY customer_region"
+          }
+        },
+        "error": "OperationalError: no such column: customer_region"
+      }
+    }
+  ]
+}
