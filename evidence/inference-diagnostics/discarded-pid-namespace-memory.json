@@ -1,0 +1,106 @@
+{
+  "config": "kv_cache_1t",
+  "use_cache": true,
+  "model": "Qwen/Qwen3-1.7B",
+  "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+  "parameters": 1720574976,
+  "dtype": "torch.bfloat16",
+  "threads": 1,
+  "max_new_tokens": 128,
+  "load_seconds": 2.2898911019997286,
+  "warmup_excluded": {
+    "case_id": "order_count",
+    "prompt_sha256": "90f25d560c0702a21ecd6063787377a0a3ea5904ecea8b0dc5221de084b92747",
+    "prompt_tokens": 756,
+    "generated_tokens": 20,
+    "text": "{\"tool\": \"validate_sql\", \"args\": {\"sql\": \"SELECT COUNT(*) FROM orders\"}}",
+    "token_ids_sha256": "ae700b5790b40fb8d2402d80482ed5f73c98c2dcc5e52940ac4d76ff6d24c3cb",
+    "generation_seconds": 24.734940808000374,
+    "request_seconds": 24.755992312000217,
+    "ttft_seconds": 14.617631210000127,
+    "tokens_per_second": 0.8085727859729147,
+    "decode_tokens_per_second": 1.8779994039370453,
+    "rss_before_mib": 0.29296875,
+    "sampled_peak_rss_mib": 0.29296875,
+    "rss_growth_mib": 0.0,
+    "token_cap_hit": false,
+    "token_events": 20
+  },
+  "environment": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "torch": "2.14.1+cpu",
+    "transformers": "5.21.0",
+    "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+    "cpu_count": 9,
+    "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+    "cgroup_cpu_max": "800000 100000",
+    "cgroup_memory_max": "8589934592"
+  },
+  "process_peak_rss_mib_including_load": 3995.48046875,
+  "measurements": [
+    {
+      "case_id": "paid_count",
+      "prompt_sha256": "fcf044169a173bfe06a3954963d30da2eda1206f6e96eb0a26119eb06f55ca76",
+      "prompt_tokens": 751,
+      "generated_tokens": 27,
+      "text": "{\"tool\": \"validate_sql\", \"args\": {\"sql\": \"SELECT COUNT(*) FROM orders WHERE status = 'paid'\"}}",
+      "token_ids_sha256": "b08014d630d6f04c96ca82fb507af595931069d007918741a8f0ee14d49c7a3f",
+      "generation_seconds": 28.068817422000393,
+      "request_seconds": 28.071713676999934,
+      "ttft_seconds": 14.032080495000173,
+      "tokens_per_second": 0.961921537130287,
+      "decode_tokens_per_second": 1.8523226856283392,
+      "rss_before_mib": 0.29296875,
+      "sampled_peak_rss_mib": 0.29296875,
+      "rss_growth_mib": 0.0,
+      "token_cap_hit": false,
+      "token_events": 27,
+      "repetition": 1,
+      "quality": {
+        "valid_action": true,
+        "correct": true,
+        "rows": [
+          [
+            3
+          ]
+        ],
+        "action": {
+          "tool": "validate_sql",
+          "args": {
+            "sql": "SELECT COUNT(*) FROM orders WHERE status = 'paid'"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "ambiguous",
+      "prompt_sha256": "0aaab792acb902327fa430fb418a93755a957a74913b3f2c354fc90097e90393",
+      "prompt_tokens": 749,
+      "generated_tokens": 42,
+      "text": "{\"tool\": \"validate_sql\", \"args\": {\"sql\": \"SELECT SUM(order_financials.booked_revenue) AS booked_revenue FROM order_financials WHERE status = 'paid'\"}}",
+      "token_ids_sha256": "f40ca6ed8ddb1bde809b391a60ae8d39214fefb0f8593403bcdcd3682a32665a",
+      "generation_seconds": 37.543339770999864,
+      "request_seconds": 37.54782502799981,
+      "ttft_seconds": 15.133305218999794,
+      "tokens_per_second": 1.11870707976925,
+      "decode_tokens_per_second": 1.829659263683903,
+      "rss_before_mib": 0.29296875,
+      "sampled_peak_rss_mib": 0.29296875,
+      "rss_growth_mib": 0.0,
+      "token_cap_hit": false,
+      "token_events": 42,
+      "repetition": 0,
+      "quality": {
+        "valid_action": true,
+        "correct": false,
+        "rows": null,
+        "action": {
+          "tool": "validate_sql",
+          "args": {
+            "sql": "SELECT SUM(order_financials.booked_revenue) AS booked_revenue FROM order_financials WHERE status = 'paid'"
+          }
+        }
+      }
+    }
+  ]
+}
