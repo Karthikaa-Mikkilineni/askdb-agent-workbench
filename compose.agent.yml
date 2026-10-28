@@ -1,0 +1,16 @@
+services:
+  agent:
+    build:
+      context: .
+      dockerfile: backend/Agent.Dockerfile
+    ports: ["127.0.0.1:8081:8081"]
+    environment:
+      ASKDB_API_KEY: ${ASKDB_API_KEY:?Set a random API key of at least 24 characters}
+      ASKDB_LLM_BASE_URL: ${ASKDB_LLM_BASE_URL:?Set an OpenAI-compatible base URL}
+      ASKDB_LLM_MODEL: ${ASKDB_LLM_MODEL:?Set a model identifier}
+      ASKDB_LLM_API_KEY: ${ASKDB_LLM_API_KEY:?Set the provider credential}
+    volumes: ["agent-state:/state"]
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+volumes:
+  agent-state:
